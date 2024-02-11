@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h> this is a non standard library and includes all headers
+#include <iostream>
+#include <vector>
 using namespace std;
 
 void merge(vector<int> &arr, int low, int mid, int high)
