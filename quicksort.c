@@ -2,100 +2,65 @@
 
 void swap(int *a, int *b)
 {
-    int temp = *a;
+    int t = *a;
     *a = *b;
-    *b = temp;
+    *b = t;
 }
 
-int partition(int arr[], int low, int high)
+int partition(int arr[], int low, int high, int lenght)
 {
-    int pivot = arr[low];
-    int i = low + 1;
-    int j = high;
-
-    printf("Partition Pass: Pivot = %d\n", pivot);
-    printf("Array: ");
-    for (int k = low; k <= high; k++)
+    int pivot = arr[high];
+    int i = (low - 1);
+    for (int j = low; j <= high - 1; j++)
     {
-        printf("%d ", arr[k]);
-    }
-    printf("\n");
-
-    while (i <= j)
-    {
-        while (arr[i] <= pivot && i <= high)
+        if (arr[j] < pivot)
         {
             i++;
-        }
-
-        while (arr[j] > pivot && j >= low + 1)
-        {
-            j--;
-        }
-
-        if (i <= j)
-        {
             swap(&arr[i], &arr[j]);
-            printf("Swapping %d and %d:\t", arr[i], arr[j]);
-            for (int k = low; k <= high; k++)
-            {
-                printf("%d ", arr[k]);
-            }
-            printf("\n");
         }
     }
-
-    swap(&arr[low], &arr[j]);
-    printf("Pivot %d is in its sorted position:\t", pivot);
-    for (int k = low; k <= high; k++)
+    swap(&arr[i + 1], &arr[high]);
+    printf("Pivot is %d \n", arr[i + 1]);
+    for (int l = 0; l < lenght; l++)
     {
-        printf("%d ", arr[k]);
+        printf("%d\t", arr[l]);
     }
-    printf("\n\n");
-
-    return j;
+    printf("\n");
+    return (i + 1);
 }
 
-void quicksort(int arr[], int low, int high)
+int quicksort(int arr[], int low, int high, int lenght)
 {
     if (low < high)
     {
-        int p = partition(arr, low, high);
-        quicksort(arr, low, p - 1);
-        quicksort(arr, p + 1, high);
+        int p = partition(arr, low, high, lenght);
+        quicksort(arr, low, p - 1, lenght);
+        quicksort(arr, p + 1, high, lenght);
     }
 }
 
 int main()
 {
-    int n;
-
-    printf("Enter the size of array: ");
+    int n, i, j;
+    printf("Enter the size of array:");
     scanf("%d", &n);
-
     int arr[n];
-
-    printf("Enter the array: ");
-    for (int i = 0; i < n; i++)
+    printf("Enter the array elements : ");
+    for (i = 0; i < n; i++)
     {
         scanf("%d", &arr[i]);
     }
-
-    printf("\nInitial Array: ");
-    for (int i = 0; i < n; i++)
+    printf("Entered array is : \n");
+    for (j = 0; j < n; j++)
     {
-        printf("%d ", arr[i]);
-    }
-    printf("\n\n");
-
-    quicksort(arr, 0, n - 1);
-
-    printf("Sorted Array: ");
-    for (int i = 0; i < n; i++)
-    {
-        printf("%d ", arr[i]);
-    }
+        printf("%d\t", arr[j]);   
+    }       
     printf("\n");
+    quicksort(arr, 0, n - 1, n - 1);
 
-    return 0;
+    printf("sorted array is : ");
+    for (i = 0; i < n; i++)
+    {
+        printf("%d\t", arr[i]);
+    }
 }
